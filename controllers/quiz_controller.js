@@ -3,25 +3,33 @@
  */
 var models = require('../models/models.js');
 
-exports.question = function(req, res){
-    models.Quiz.findAll().then(
+exports.show = function(req, res){
+    models.Quiz.findByPrimary(req.params.quizId).then(
         function(quiz){
-            res.render('quizes/question',{title:'Preguntas',pregunta: quiz[0].pregunta});
+            res.render('quizes/show',{title:quiz.pregunta , quiz: quiz});
         }
     )
 };
 
 exports.answer = function(req, res){
-    models.Quiz.findAll().then(
+    models.Quiz.findByPrimary(req.params.quizId).then(
         function(quiz){
-            if (req.query.respuesta === quiz[0].respuesta){
-                res.render('quizes/answer', {title:'Respuesta Correcta', respuesta:'correcta'});
+            if (req.query.respuesta === quiz.respuesta){
+                res.render('quizes/answer',
+                    {title:'Respuesta Correcta', respuesta:'correcta', quiz:quiz});
             }
             else{
-                res.render('quizes/answer', {title:'Respuesta Incorrecta', respuesta:'Incorrecta'});
+                res.render('quizes/answer',
+                    {title:'Respuesta Incorrecta', respuesta:'Incorrecta', quiz:quiz});
             }
         }
     )
 };
 
-
+exports.index = function(req ,res) {
+    models.Quiz.findAll().then(
+        function(quizes){
+            res.render('quizes/index.ejs',
+                {quizes: quizes, title: 'Quiz | Preguntas'})
+        })
+};

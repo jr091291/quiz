@@ -7,3 +7,4 @@ module.exports = function(sequelize, DataTypes){
         respuesta: DataTypes.STRING
     });
 }
+
