@@ -3,6 +3,20 @@
  */
 var models = require('../models/models.js');
 
+exports.load = function(req, res, next , quizId){
+    models.Quiz.findByPrimary(quizId).then(
+        function(quiz){
+            if(quiz){
+                req.quiz =quiz;
+                next();
+            }
+            else{
+                next(new Error('No Existe QuizId: ' + quizId));
+            }
+        }
+    )
+};
+
 exports.show = function(req, res){
     models.Quiz.findByPrimary(req.params.quizId).then(
         function(quiz){
