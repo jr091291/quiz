@@ -4,7 +4,7 @@ var quizController = require('../controllers/quiz_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Quiz | inicio' });
+  res.render('index', { title: 'Quiz | inicio', errors:[] });
 });
 
 //Autoload De Comandos con :quizId
